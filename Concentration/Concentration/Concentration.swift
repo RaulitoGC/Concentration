@@ -10,8 +10,8 @@ import Foundation
 
 class Concentration{
     
-    static let INVALID_INDEX = -1
-    let emojiesHash : [Int: [String]] = [ 0:["😀","😃","😁","😆","😎","😝","😤","🥺"],
+    private static let INVALID_INDEX = -1
+    private let emojiesHash : [Int: [String]] = [ 0:["😀","😃","😁","😆","😎","😝","😤","🥺"],
                                           1:["🌂","🥽","🕶","👓","🧳","🎒","💼","👜"],
                                           2:["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼"],
                                           3:["🌲","🌳","🌴","🌱","🌿","☘️","🍀","🎍"],
@@ -20,16 +20,16 @@ class Concentration{
                                           6:["⚽️","🏀","🏈","⚾️","🥎","🎾","🏑","🏉"]]
     
     var cards = [Card]()
-    var lastCardIndexFaceUp : Int = Concentration.INVALID_INDEX
-    var flipCount = 0
-    var points = 0
+    private var lastCardIndexFaceUp : Int = Concentration.INVALID_INDEX
+    private(set) var flipCount = 0
+    private(set) var points = 0
     
     init(numberPairOfCards: Int = 0) {
-        
+        assert(numberPairOfCards > 0, "Number pair of cards should be positive")
         self.flipCount = 0
         self.points = 0
         
-        let randomIndex = Int.random(in: 0 ..< 7)
+        let randomIndex = 7.randomUntil
         let emojies : [String] = emojiesHash[randomIndex]!
         
         for index in 0 ..< numberPairOfCards {
@@ -38,8 +38,8 @@ class Concentration{
         }
         
         for _ in 0 ..< numberPairOfCards{
-            let first = Int.random(in: 0 ..< numberPairOfCards*2)
-            let second = Int.random(in: 0 ..< numberPairOfCards*2)
+            let first = (numberPairOfCards*2).randomUntil
+            let second = (numberPairOfCards*2).randomUntil
             cards.swapAt(first,second)
         }
     }
@@ -75,4 +75,10 @@ class Concentration{
         self.flipCount += 1
     }
     
+}
+
+extension Int{
+    var randomUntil : Int {
+        return .random(in: 0 ..< self)
+    }
 }

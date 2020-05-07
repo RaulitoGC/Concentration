@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var game = Concentration()
+    private var game = Concentration()
     
     @IBOutlet weak var flipCountLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
@@ -41,7 +41,7 @@ class ViewController: UIViewController {
     }
     
     
-    func updateViewFromModel(){
+    private func updateViewFromModel(){
         scoreLabel.text = "Score: \(game.points)"
         flipCountLabel.text = "Flips: \(game.flipCount)"
         
